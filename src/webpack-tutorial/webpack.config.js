@@ -1,10 +1,28 @@
-const path = require("path");
+  const path = require("path");
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "./dist"),
+    publicPath: "dist/"
   },
   mode: "none",
+  module:{
+    rules:[
+      {
+        test: /\.(png|jpg)$/,
+        type: "asset",
+        parser:{
+          dataUrlCondition:{
+            maxSize: 8 * 1024 // 8kb
+          }
+        }
+      },
+      {
+        test: /\.txt$/,
+        type: "asset/source"
+      }
+    ]
+  }
 };
