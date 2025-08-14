@@ -6,6 +6,8 @@ function addImage(){
     img.alt = altText;
     img.width = 300;
     img.src = Kiwi;
+    img.style.display = 'block';
+    img.style.margin = '20px 0px';
     const body = document.querySelector('body');
     body.appendChild(img);
 }
