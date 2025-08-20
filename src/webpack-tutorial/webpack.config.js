@@ -66,6 +66,18 @@ module.exports = {
       //   path.join(process.cwd(), 'build/**/*')
       // ]
     }),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      title: 'Hello World',
+      meta:{
+        description: 'Some description'
+      },
+      minify: {
+        collapseWhitespace: false, // 🔑 prevents single-line output
+        keepClosingSlash: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true
+      }
+    })
   ],
 };
