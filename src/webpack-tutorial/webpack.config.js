@@ -52,6 +52,12 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.hbs$/,
+        use: {
+          loader: 'handlebars-loader'
+        }
       }
     ]
   },
@@ -68,16 +74,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'Hello World',
-      meta:{
-        description: 'Some description'
-      },
-      minify: {
-        collapseWhitespace: false, // 🔑 prevents single-line output
-        keepClosingSlash: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true
-      }
+      description: 'Some description',
+      template: './src/index.hbs'
     })
   ],
 };
