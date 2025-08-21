@@ -14,6 +14,17 @@ module.exports = {
     // }
   },
   mode: "development",
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, "./dist"),
+    },
+    devMiddleware: {
+      index: 'index.html',
+      writeToDisk: true,
+    },
+    compress: true,
+    port: 9000,
+  },
   module:{
     rules:[
       {
