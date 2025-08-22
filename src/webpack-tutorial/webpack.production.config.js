@@ -20,7 +20,8 @@ module.exports = {
   mode: "production",
   optimization:{
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      minSize: 3000
     },
     runtimeChunk: 'single'
   },
