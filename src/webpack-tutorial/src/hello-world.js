@@ -1,5 +1,8 @@
-function helloWorld(){
-    console.log('Hello World');
-}
+import Heading from "./components/heading/heading.js"; 
+import HelloWorldButton from "./components/hello-world-button/hello-world-button.js"; 
 
-export default helloWorld;
+const heading = new Heading();
+heading.render();
+
+const helloWorldButton = new HelloWorldButton();
+helloWorldButton.render();
