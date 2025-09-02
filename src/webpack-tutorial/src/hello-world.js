@@ -1,6 +1,5 @@
 import Heading from "./components/heading/heading.js"; 
 import HelloWorldButton from "./components/hello-world-button/hello-world-button.js"; 
-import React from "react";
 
 const heading = new Heading();
 heading.render('Hello World');
