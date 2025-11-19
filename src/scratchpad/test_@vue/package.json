@@ -1,0 +1,8 @@
+{
+  "name": "test_vue-basics",
+  "version": "1.0.0",
+  "description": "This app is created to understand vue framework scaffolding.",
+  "dependencies": {
+    "vue": "^3.5.24"
+  }
+}
