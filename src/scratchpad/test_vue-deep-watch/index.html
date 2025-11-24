@@ -22,13 +22,26 @@
                 }
             }
         }
-        createApp({
+        const vm = createApp({
             data() {
                 return {
                     user: user,
                 }
+            },
+            watch: {
+                user: {
+                    deep: true,
+                    immediate: true,
+                    handler(newVal, oldVal) {
+                        console.log("🔍 Deep watcher triggered!");
+                        console.log("Old:", oldVal);
+                        console.log("New:", newVal);
+                        console.log("Are they the same reference? →", newVal === oldVal);
+                    }
+                }
             }
         }).mount("#app");
+        window.vm = vm;
     </script>
 </body>
 
