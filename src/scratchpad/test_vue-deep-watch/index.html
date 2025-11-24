@@ -7,17 +7,29 @@
 
 <body>
     <div id="app">
-        {{message}}
+        {{user.name}} lives in {{user.address.city}}, {{user.address.country.name}} ({{user.address.zip}})
     </div>
     <script>
         const { createApp } = Vue;
+        const user = {
+            name: 'Alice',
+            address: {
+                city: 'Wonderland',
+                zip: '12345',
+                country: {
+                    name: 'Fantasyland',
+                    code: 'FL'
+                }
+            }
+        }
         createApp({
             data() {
                 return {
-                    message: 'Hello Vue 3!'
+                    user: user,
                 }
             }
         }).mount("#app");
     </script>
 </body>
+
 </html>
