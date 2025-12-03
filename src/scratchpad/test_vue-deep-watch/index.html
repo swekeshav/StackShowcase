@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{user.name}} lives in {{user.address.city}}, {{user.address.country.name}} ({{user.address.zip}})
+    </div>
+    <script>
+        const { createApp } = Vue;
+        const user = {
+            name: 'Alice',
+            address: {
+                city: 'Wonderland',
+                zip: '12345',
+                country: {
+                    name: 'Fantasyland',
+                    code: 'FL'
+                }
+            }
+        }
+        const vm = createApp({
+            data() {
+                return {
+                    user: user,
+                }
+            },
+            watch: {
+                user: {
+                    deep: true,
+                    immediate: true,
+                    handler(newVal, oldVal) {
+                        console.log("🔍 Deep watcher triggered!");
+                        console.log("Old:", oldVal);
+                        console.log("New:", newVal);
+                        console.log("Are they the same reference? →", newVal === oldVal);
+                    }
+                }
+            }
+        }).mount("#app");
+        window.vm = vm;
+    </script>
+</body>
+
+</html>
