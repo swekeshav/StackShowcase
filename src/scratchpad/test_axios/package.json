@@ -3,6 +3,7 @@
         "axios": "1.13.2"
     },
     "devDependencies": {
+        "vite": "^7.2.7",
         "vitest": "4.0.15"
     }
 }
