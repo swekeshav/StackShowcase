@@ -1,0 +1,11 @@
+<html>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        axios.get('https://jsonplaceholder.typicode.com/todos/1')
+            .then(res => document.body.innerText = JSON.stringify(res.data, null, 2));
+    </script>
+</body>
+
+</html>
