@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        window.onerror = function (message, source, lineno, colno, error) {
+            console.error("Global Error:", message, "at", source, ":", lineno)
+        }
+        console.log("Page loaded, checking imports...");
+    </script>
+    <script type="importmap">
+    {
+        "imports": {
+            "vue": "https://unpkg.com/vue@3.4.1/dist/vue.esm-browser.js",
+            "pinia": "https://unpkg.com/pinia@3.0.4/dist/pinia.esm-browser.js",
+            "@vue/devtools-api": "https://unpkg.com/@vue/devtools-api@6.5.1/lib/esm/index.js"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{ message }}</h2>
+        <p> Counter: {{ counterStore.count}}</p>
+        <p> Double: {{ counterStore.doubleCount}}</p>
+        <button @click="counterStore.increment">Increment</button>
+    </div>
+    <script type="module">
+        import { createApp } from 'vue'
+        import { createPinia, defineStore } from 'pinia'
+
+        console.log("Imports successful")
+
+        const useCounterStore = defineStore("counter", {
+            state: () => ({
+                count: 0
+            }),
+            getters: {
+                doubleCount: (state) => state.count * 2
+            },
+            actions: {
+                increment() {
+                    this.count++
+                }
+            }
+        })
+
+        const app = createApp({
+            setup() {
+                const counterStore = useCounterStore()
+                return {
+                    message: "Hello Pinia!",
+                    counterStore
+                }
+            },
+        })
+
+        app.use(createPinia())
+        app.mount("#app")
+    </script>
+</body>
+
+</html>
