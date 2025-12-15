@@ -1,0 +1,1 @@
+export const devLog = import.meta.env.DEV ? console.log : () => { }

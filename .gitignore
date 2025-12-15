@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 #Webpack dist files
 src/webpack-tutorial/dist/
+src/scratchpad/utility_devLog/dist/
