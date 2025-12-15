@@ -1,0 +1,22 @@
+<html>
+
+<body>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+    <div id="userInfo"></div>
+    <script type="module">
+        import { getUser } from './api.ts'
+
+        (async () => {
+            try {
+                const userInfo = await getUser(1)
+                const userElement = document.getElementById('userInfo')
+                userElement.textContent = JSON.stringify(userInfo, null, 2)
+                console.log(userInfo)
+            } catch (error) {
+                console.error('Error fetching user:', error)
+            }
+        })();
+    </script>
+</body>
+
+</html>
