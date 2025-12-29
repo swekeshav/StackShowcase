@@ -1,11 +1,10 @@
-const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
   entry: {
-    'hello-world': './src/hello-world.js',
     'kiwi': './src/kiwi.js'
   },
   output: {
@@ -18,20 +17,20 @@ module.exports = {
     // }
   },
   mode: "production",
-  optimization:{
+  optimization: {
     splitChunks: {
       chunks: 'all',
       minSize: 3000
     },
     runtimeChunk: 'single'
   },
-  module:{
-    rules:[
+  module: {
+    rules: [
       {
         test: /\.(png|jpg)$/,
         type: "asset",
-        parser:{
-          dataUrlCondition:{
+        parser: {
+          dataUrlCondition: {
             maxSize: 8 * 1024 // 8kb
           }
         }
@@ -41,14 +40,14 @@ module.exports = {
         type: "asset/source"
       },
       {
-        test:/\.css$/,
-        use:[
+        test: /\.css$/,
+        use: [
           MiniCssExtractPlugin.loader, 'css-loader'
         ]
       },
       {
-        test:/\.scss$/,
-        use:[
+        test: /\.scss$/,
+        use: [
           MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
         ]
       },
@@ -81,14 +80,6 @@ module.exports = {
       // ]
     }),
     new HtmlWebpackPlugin({
-      filename: 'hello-world.html',
-      chunks: ['hello-world'],
-      title: 'Hello World',
-      template: './src/page-template.hbs',
-      description: 'Hello world',
-      // minify: false
-    }),
-    new HtmlWebpackPlugin({
       filename: 'kiwi.html',
       chunks: ['kiwi'],
       title: 'Kiwi',
@@ -97,4 +88,4 @@ module.exports = {
       // minify: false
     })
   ],
-};
+}
