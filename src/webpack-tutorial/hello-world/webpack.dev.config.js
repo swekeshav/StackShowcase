@@ -1,8 +1,7 @@
 const path = require("path")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const e = require("express")
-const ModuleFederationPlugin = require("webpack").container
+const { ModuleFederationPlugin } = require("webpack").container
 
 module.exports = {
   entry: {
