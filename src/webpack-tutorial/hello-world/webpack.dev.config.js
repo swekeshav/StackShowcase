@@ -1,6 +1,8 @@
 const path = require("path")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const e = require("express")
+const ModuleFederationPlugin = require("webpack").container
 
 module.exports = {
   entry: {
@@ -9,7 +11,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "",
+    publicPath: "http://localhost:9001/",
     // clean: {
     //   dry: true,
     //   keep: /\.css$/
@@ -85,6 +87,13 @@ module.exports = {
       title: 'Hello World',
       template: './src/page-template.hbs',
       description: 'Hello world',
+    }),
+    new ModuleFederationPlugin({
+      name: 'HelloWorldApp',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './HelloWorldButton': './src/components/hello-world-button/hello-world-button.js'
+      }
     })
   ],
 }

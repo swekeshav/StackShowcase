@@ -1,6 +1,7 @@
 const path = require("path")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const { ModuleFederationPlugin } = require("webpack").container
 
 module.exports = {
   entry: {
@@ -85,6 +86,12 @@ module.exports = {
       title: 'Kiwi',
       template: './src/page-template.hbs',
       description: 'Kiwi',
+    }),
+    new ModuleFederationPlugin({
+      name: 'KiwiApp',
+      remotes: {
+        'HelloWorldApp': 'HelloWorldApp@http://localhost:9001/remoteEntry.js'
+      }
     })
   ],
 }
