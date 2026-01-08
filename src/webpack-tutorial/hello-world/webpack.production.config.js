@@ -2,6 +2,7 @@ const path = require("path")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const { ModuleFederationPlugin } = require("webpack").container
 
 module.exports = {
   entry: {
@@ -10,7 +11,7 @@ module.exports = {
   output: {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "/static/",
+    publicPath: "http://localhost:9001/",
     // clean: {
     //   dry: true,
     //   keep: /\.css$/
@@ -86,6 +87,13 @@ module.exports = {
       template: './src/page-template.hbs',
       description: 'Hello world',
       // minify: false
+    }),
+    new ModuleFederationPlugin({
+      name: 'HelloWorldApp',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './HelloWorldButton': './src/components/hello-world-button/hello-world-button.js'
+      }
     })
   ],
 }
