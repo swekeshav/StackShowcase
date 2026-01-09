@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
   res.send(contentFromHtmlFile)
 })
 
-app.use('/static', express.static(path.resolve(__dirname, '../dist')))
+app.use('/', express.static(path.resolve(__dirname, '../dist')))
 
 app.listen(9002, () => {
   console.log('Server is running on http://localhost:9002/')
