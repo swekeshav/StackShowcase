@@ -10,7 +10,7 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "",
+    publicPath: "http://localhost:9002/",
     // clean: {
     //   dry: true,
     //   keep: /\.css$/
@@ -89,8 +89,12 @@ module.exports = {
     }),
     new ModuleFederationPlugin({
       name: 'KiwiApp',
-      remotes: {
-        'HelloWorldApp': 'HelloWorldApp@http://localhost:9001/remoteEntry.js'
+      filename: 'remoteEntry.js',
+      // remotes: {
+      //   'HelloWorldApp': 'HelloWorldApp@http://localhost:9001/remoteEntry.js'
+      // },
+      exposes: {
+        './KiwiPage': './src/components/kiwi-page/kiwi-page.js'
       }
     })
   ],
