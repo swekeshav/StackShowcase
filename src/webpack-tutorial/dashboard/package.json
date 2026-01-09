@@ -1,0 +1,6 @@
+{
+  "name": "webpack-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dashboard.js"
+}
