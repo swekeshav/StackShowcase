@@ -26,7 +26,7 @@ module.exports = {
       writeToDisk: true,
     },
     compress: true,
-    port: 9002,
+    port: 9000,
     historyApiFallback: {
       index: 'dashboard.html',
     },
@@ -59,8 +59,8 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'DashboardApp',
       remotes: {
-        'HelloWorldApp': 'HelloWorldApp@http://localhost:9001/remoteEntry.js',
-        'KiwiApp': 'KiwiApp@http://localhost:9003/remoteEntry.js',
+        HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js',
+        KiwiApp: 'KiwiApp@http://localhost:9002/remoteEntry.js',
       },
     })
   ],

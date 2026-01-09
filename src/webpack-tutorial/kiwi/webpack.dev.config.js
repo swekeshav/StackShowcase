@@ -94,7 +94,7 @@ module.exports = {
       //   'HelloWorldApp': 'HelloWorldApp@http://localhost:9001/remoteEntry.js'
       // },
       exposes: {
-        'KiwiPage': './src/components/kiwi-page/kiwi-page.js'
+        './KiwiPage': './src/components/kiwi-page/kiwi-page.js'
       }
     })
   ],

@@ -1,5 +1,5 @@
-import Heading from "./components/heading/heading.js"
-import KiwiImage from "./components/kiwi-image/kiwi-image.js"
+import Heading from "../heading/heading.js"
+import KiwiImage from "../kiwi-image/kiwi-image.js"
 
 class KiwiPage {
     render() {
