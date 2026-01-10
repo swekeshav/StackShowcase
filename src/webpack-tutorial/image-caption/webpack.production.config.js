@@ -6,12 +6,12 @@ const { ModuleFederationPlugin } = require("webpack").container
 
 module.exports = {
   entry: {
-    'kiwi': './src/kiwi.js'
+    'image-caption': './src/image-caption.js'
   },
   output: {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "http://localhost:9002/",
+    publicPath: "http://localhost:9003/",
     // clean: {
     //   dry: true,
     //   keep: /\.css$/
@@ -28,31 +28,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg)$/,
-        type: "asset",
-        parser: {
-          dataUrlCondition: {
-            maxSize: 8 * 1024 // 8kb
-          }
-        }
-      },
-      {
-        test: /\.txt$/,
-        type: "asset/source"
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader, 'css-loader'
-        ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
-        ]
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -61,6 +36,12 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
+        ]
       },
       {
         test: /\.hbs$/,
@@ -81,22 +62,17 @@ module.exports = {
       // ]
     }),
     new HtmlWebpackPlugin({
-      filename: 'kiwi.html',
-      chunks: ['kiwi'],
-      title: 'Kiwi',
-      template: './src/page-template.hbs',
-      description: 'Kiwi',
-      // minify: false
+      filename: 'image-caption.html',
+      title: 'Image Caption',
+      description: 'Image Caption',
+      template: 'src/page-template.hbs'
     }),
     new ModuleFederationPlugin({
-      name: 'KiwiApp',
+      name: 'ImageCaptionApp',
       filename: 'remoteEntry.js',
-      remotes: {
-        ImageCaptionApp: 'ImageCaptionApp@http://localhost:9003/remoteEntry.js'
-      },
       exposes: {
-        './KiwiPage': './src/components/kiwi-page/kiwi-page.js'
-      }
+        './ImageCaption': './src/components/image-caption/image-caption.js',
+      },
     })
   ],
 }

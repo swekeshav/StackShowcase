@@ -8,6 +8,14 @@ class KiwiPage {
 
         const kiwiImage = new KiwiImage()
         kiwiImage.render()
+
+
+        import('ImageCaptionApp/ImageCaption')
+            .then(ImageCaptionModule => {
+                const ImageCaption = ImageCaptionModule.default
+                const imageCaption = new ImageCaption()
+                imageCaption.render('Kiwi is oval, about the size of a large egg.')
+            })
     }
 }
 
