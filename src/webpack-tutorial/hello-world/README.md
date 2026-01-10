@@ -1,170 +1,86 @@
-# Webpack Tutorial
+# Hello World Remote
 
-A comprehensive webpack tutorial project demonstrating modern webpack configuration, build optimization, and development workflows.
+Standalone Hello World micro front end configured as a Module Federation remote that exposes UI primitives to other webpack hosts.
 
-## Overview
+## Architecture
 
-This project showcases various webpack features including:
-- Multiple entry points
-- Asset management (images, CSS, SCSS)
-- JavaScript transpilation with Babel
-- Handlebars template integration
-- Code splitting and optimization
-- Development and production configurations
-- Webpack Dev Server with hot module replacement
+- Entry point [`hello-world.js`](src/webpack-tutorial/hello-world/src/hello-world.js) bootstraps the page, registers the `HelloWorldButton`, and wires SCSS + Handlebars assets.
+- [`webpack.dev.config.js`](src/webpack-tutorial/hello-world/webpack.dev.config.js) serves the bundle on **<http://localhost:9001/>** and exposes the remote entry via `ModuleFederationPlugin` so the dashboard host can dynamically import `HelloWorldPage` and `HelloWorldButton`.
+- [`webpack.production.config.js`](src/webpack-tutorial/hello-world/webpack.production.config.js) mirrors the dev setup but emits hashed filenames suitable for long‑term caching.
 
-## Project Structure
+### Remote Interface
 
-```
-webpack-tutorial/
-├── src/
-│   ├── components/          # Reusable components
-│   │   ├── heading/
-│   │   ├── hello-world-button/
-│   │   └── kiwi-image/
-│   ├── hello-world.js      # Entry point for hello-world page
-│   ├── kiwi.js             # Entry point for kiwi page
-│   ├── page-template.hbs   # Handlebars template for HTML generation
-│   └── server.js           # Express server for production
-├── dist/                   # Build output directory
-├── webpack.dev.config.js   # Development webpack configuration
-├── webpack.production.config.js  # Production webpack configuration
-└── package.json
+| Exposed module | File | Purpose |
+| --- | --- | --- |
+| `HelloWorldApp/HelloWorldButton` | [`components/hello-world-button/hello-world-button.js`](src/webpack-tutorial/hello-world/src/components/hello-world-button/hello-world-button.js) | Renders the styled CTA button used across hosts |
+| `HelloWorldApp/HelloWorldPage` | [`components/hello-world-page/hello-world-page.js`](src/webpack-tutorial/hello-world/src/components/hello-world-page/hello-world-page.js) | Full page composition that mounts the heading + button |
+
+Any host can consume the remote by declaring:
+
+```js
+new ModuleFederationPlugin({
+  remotes: {
+    HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js',
+  },
+})
 ```
 
-## Features
-
-### Build Configuration
-- **Multiple Entry Points**: Separate bundles for `hello-world` and `kiwi` pages
-- **Code Splitting**: Automatic chunk splitting for shared dependencies
-- **Asset Optimization**: Image optimization with inline base64 for small files (< 8KB)
-- **CSS Processing**: SCSS compilation with separate CSS extraction in production
-- **JavaScript Transpilation**: Babel with preset-env for modern JavaScript support
-- **Template Engine**: Handlebars for dynamic HTML generation
-
-### Development Features
-- **Hot Module Replacement**: Live reloading during development
-- **Source Maps**: Enabled for debugging
-- **Dev Server**: Webpack Dev Server on port 9000
-
-### Production Features
-- **Content Hashing**: Cache-busting with content hashes in filenames
-- **CSS Extraction**: Separate CSS files for better caching
-- **Code Minification**: Automatic minification in production mode
-- **Runtime Chunk**: Separate runtime chunk for better caching
-
-## Getting Started
-
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
+## Local Development
 
 ```bash
 npm install
-```
-
-### Development
-
-Start the development server with hot module replacement:
-
-```bash
 npm run dev
 ```
 
-The application will be available at `http://localhost:9000`
+Key behaviours:
 
-### Production Build
+- Dev server writes HTML to `dist/hello-world.html` so the remote entry is always available on refresh.
+- SCSS is injected via `style-loader` for instant HMR feedback.
+- Asset modules inline images < $8\text{KB}$ while larger files are emitted to `dist/assets`.
 
-Build the project for production:
+Visit `http://localhost:9001/hello-world.html` to verify the standalone build. When the dashboard (`localhost:9000`) is running, navigation to `/hello-world-page` lazy-loads this remote automatically.
+
+## Production Build
 
 ```bash
 npm run build
 ```
 
-The optimized files will be generated in the `dist/` directory.
+Outputs:
 
-### Production Server
+- `dist/hello-world.[contenthash].js` and `dist/hello-world.[contenthash].css`
+- `dist/remoteEntry.js` for Module Federation consumers
+- Static HTML generated via `HtmlWebpackPlugin`
 
-Run the Express server to serve the production build:
+To serve the optimized bundle together with its API mocks:
 
 ```bash
 npm start
 ```
 
-## Available Scripts
+This command runs [`src/server.js`](src/webpack-tutorial/hello-world/src/server.js) and mounts the compiled assets on `http://localhost:9001`.
 
-- `npm run dev` - Start webpack dev server with hot reloading
-- `npm run build` - Build for production with optimizations
-- `npm start` - Start Express server for production build
+## Scripts
 
-## Technologies Used
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Launch webpack dev server with HMR on port 9001 |
+| `npm run build` | Produce optimized production assets under `dist/` |
+| `npm start` | Serve the production build via Express |
 
-### Core
-- **Webpack 5** - Module bundler
-- **Babel** - JavaScript compiler
-- **Handlebars** - Template engine
+## Tech Stack
 
-### Loaders
-- `babel-loader` - Transpile ES6+ JavaScript
-- `css-loader` - Process CSS files
-- `sass-loader` - Compile SCSS to CSS
-- `style-loader` - Inject CSS into DOM (development)
-- `handlebars-loader` - Process Handlebars templates
+- **Webpack 5** with asset modules, SCSS pipeline, and Module Federation.
+- **Babel** (`@babel/preset-env`) targeting modern evergreen browsers.
+- **Handlebars** templates for HTML scaffolding.
+- **Sass** for component-scoped styling.
 
-### Plugins
-- `html-webpack-plugin` - Generate HTML files
-- `mini-css-extract-plugin` - Extract CSS to separate files (production)
-- `clean-webpack-plugin` - Clean output directory before builds
+## Troubleshooting
 
-### Development Tools
-- `webpack-dev-server` - Development server with HMR
-
-## Configuration Details
-
-### Development Configuration (`webpack.dev.config.js`)
-- Mode: `development`
-- Inline CSS injection with `style-loader`
-- Source maps enabled
-- Dev server on port 9000
-- Hot module replacement enabled
-
-### Production Configuration (`webpack.production.config.js`)
-- Mode: `production`
-- CSS extraction to separate files
-- Content hashing for cache busting
-- Code splitting with shared chunks
-- Runtime chunk separation
-- Minification enabled
-
-## Entry Points
-
-1. **hello-world**: Demonstrates basic component rendering
-2. **kiwi**: Demonstrates image asset handling
-
-## Output Files
-
-### Development
-- `hello-world.js` / `kiwi.js` - JavaScript bundles
-- `hello-world.html` / `kiwi.html` - Generated HTML pages
-
-### Production
-- `hello-world.[hash].js` / `kiwi.[hash].js` - Hashed JavaScript bundles
-- `hello-world.[hash].css` / `kiwi.[hash].css` - Hashed CSS files
-- `runtime.[hash].js` - Runtime chunk
-- Optimized image assets
-
-## Learn More
-
-This project serves as a learning resource for:
-- Webpack configuration best practices
-- Modern JavaScript build tooling
-- Asset optimization strategies
-- Development vs production workflows
-- Code splitting and bundle optimization
+1. **Dashboard cannot fetch remote** → ensure Hello World dev server is running and that `publicPath` remains `http://localhost:9001/`.
+2. **Styles missing inside host** → confirm the host imports the exposed component rather than duplicating markup; SCSS is bundled alongside the remote chunk.
+3. **CORS/network errors** → both remote and host must run over HTTP (not file://); restart the dev servers if ports were already bound.
 
 ## License
 
 ISC
-
