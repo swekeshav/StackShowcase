@@ -1,17 +1,11 @@
 {
-  "name": "webpack-tutorial",
+  "name": "hello-world-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.production.config.js",
     "dev": "webpack serve --config webpack.dev.config.js --hot",
     "start": "node src/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.28.3",
     "@babel/preset-env": "^7.28.3",
@@ -31,7 +25,6 @@
   "dependencies": {
     "express": "^5.1.0",
     "handlebars": "^4.7.8",
-    "lodash": "^4.17.21",
-    "react": "^19.1.1"
+    "lodash": "^4.17.21"
   }
 }

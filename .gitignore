@@ -397,9 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-#Webpack dist files
-src/webpack-tutorial/dist/
+#scratchpad dist files
 src/scratchpad/utility_devLog/dist/
-src/webpack-tutorial/hello-world/dist/
-src/webpack-tutorial/kiwi/dist/
-src/webpack-tutorial/dashboard/dist/

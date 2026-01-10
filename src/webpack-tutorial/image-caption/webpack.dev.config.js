@@ -5,12 +5,12 @@ const { ModuleFederationPlugin } = require("webpack").container
 
 module.exports = {
   entry: {
-    'kiwi': './src/kiwi.js'
+    'image-caption': './src/image-caption.js'
   },
   output: {
-    filename: "[name].js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "./dist"),
-    publicPath: "http://localhost:9002/",
+    publicPath: "http://localhost:9003/",
     // clean: {
     //   dry: true,
     //   keep: /\.css$/
@@ -22,39 +22,17 @@ module.exports = {
       directory: path.resolve(__dirname, "./dist"),
     },
     devMiddleware: {
-      index: 'kiwi.html',
+      index: 'image-caption.html',
       writeToDisk: true,
     },
     compress: true,
-    port: 9002,
+    port: 9003,
+    historyApiFallback: {
+      index: 'image-caption.html',
+    },
   },
   module: {
     rules: [
-      {
-        test: /\.(png|jpg)$/,
-        type: "asset",
-        parser: {
-          dataUrlCondition: {
-            maxSize: 8 * 1024 // 8kb
-          }
-        }
-      },
-      {
-        test: /\.txt$/,
-        type: "asset/source"
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader', 'css-loader'
-        ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader', 'css-loader', 'sass-loader'
-        ]
-      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -64,6 +42,12 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader', 'css-loader', 'sass-loader'
+        ]
       },
       {
         test: /\.hbs$/,
@@ -81,21 +65,17 @@ module.exports = {
       // ]
     }),
     new HtmlWebpackPlugin({
-      filename: 'kiwi.html',
-      chunks: ['kiwi'],
-      title: 'Kiwi',
-      template: './src/page-template.hbs',
-      description: 'Kiwi',
+      filename: 'image-caption.html',
+      title: 'Image Caption',
+      description: 'Image Caption',
+      template: 'src/page-template.hbs'
     }),
     new ModuleFederationPlugin({
-      name: 'KiwiApp',
+      name: 'ImageCaptionApp',
       filename: 'remoteEntry.js',
-      remotes: {
-        ImageCaptionApp: 'ImageCaptionApp@http://localhost:9003/remoteEntry.js'
-      },
       exposes: {
-        './KiwiPage': './src/components/kiwi-page/kiwi-page.js'
-      }
+        './ImageCaption': './src/components/image-caption/image-caption.js',
+      },
     })
   ],
 }
