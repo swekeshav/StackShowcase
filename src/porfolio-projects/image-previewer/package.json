@@ -1,5 +1,5 @@
 {
-    "name": "profile-pic-uploader",
+    "name": "image-previewer",
     "type": "module",
     "main": "src/main.js",
     "scripts": {

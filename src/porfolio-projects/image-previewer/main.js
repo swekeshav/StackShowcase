@@ -4,8 +4,8 @@ uploadImage.addEventListener('change', () => {
     const file = uploadImage.files[0]
     const reader = new FileReader()
     reader.onload = function (e) {
-        const uploadPreview = document.getElementById('uploadPreview')
-        uploadPreview.src = e.target.result
+        const previewImage = document.getElementById('previewImage')
+        previewImage.src = e.target.result
     }
     reader.readAsDataURL(file)
 })
