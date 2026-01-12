@@ -1,6 +1,13 @@
 {
     "name": "profile-pic-uploader",
+    "type": "module",
+    "main": "src/main.js",
+    "scripts": {
+        "lint": "eslint .",
+        "start": "serve ."
+    },
     "devDependencies": {
-        "eslint": "9.39.2"
+        "eslint": "9.39.2",
+        "serve": "^14.2.5"
     }
 }
