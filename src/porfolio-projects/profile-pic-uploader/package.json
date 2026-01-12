@@ -4,10 +4,10 @@
     "main": "src/main.js",
     "scripts": {
         "lint": "eslint .",
-        "start": "serve ."
+        "start": "http-server . -c-1 -o"
     },
     "devDependencies": {
         "eslint": "9.39.2",
-        "serve": "^14.2.5"
+        "http-server": "14.1.1"
     }
 }
