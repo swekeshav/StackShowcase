@@ -1,0 +1,6 @@
+{
+    "name": "profile-pic-uploader",
+    "devDependencies": {
+        "eslint": "9.39.2"
+    }
+}
