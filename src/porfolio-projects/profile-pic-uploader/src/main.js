@@ -1,8 +1,3 @@
-const btnUpload = document.getElementById('btnUpload')
-btnUpload.addEventListener('click', () => {
-    console.log('A picture is uploaded!')
-})
-
 const uploadImage = document.getElementById('uploadImage')
 uploadImage.addEventListener('change', () => {
     console.log('Image file selected:', uploadImage.files[0])
