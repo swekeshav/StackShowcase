@@ -1,6 +1,6 @@
 # Image Previewer
 
-Small vanilla JS project that lets you click any thumbnail to show the full-sized image in a preview pane.
+Small vanilla JS project that lets you open an image using windows explorer to show the full-sized image in a preview pane.
 
 ## Getting Started
 
@@ -10,19 +10,16 @@ Small vanilla JS project that lets you click any thumbnail to show the full-size
    npm install
    ```
 
-2. Run the dev server:
+2. Start the http-server:
 
    ```bash
-   npm run dev
+   npm start
    ```
-
-3. Open the printed URL to play with the previewer.
 
 ## Scripts
 
-- `npm run dev` – Start Vite dev server.
-- `npm run build` – Create production build.
-- `npm run preview` – Preview the production build locally.
+- `npm lint` – Run eslint rules.
+- `npm start` – Start the http-server locally.
 
 ## Things I learnt
 
