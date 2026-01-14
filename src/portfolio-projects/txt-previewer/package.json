@@ -1,0 +1,15 @@
+{
+  "name": "txt-previewer",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "start": "http-server . -c-1 -o",
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "eslint": "9.39.2",
+    "http-server": "14.1.1",
+    "vite": "2.9.18"
+  }
+}
