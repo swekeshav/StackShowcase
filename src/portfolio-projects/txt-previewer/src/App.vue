@@ -1,6 +1,12 @@
 <template>
-    <h1>Text Previewer</h1>
-    <TxtPreviewer></TxtPreviewer>
+    <main>
+        <header>
+            <h1>Text Previewer</h1>
+        </header>
+        <section>
+            <TxtPreviewer />
+        </section>
+    </main>
 </template>
 
 <script setup>

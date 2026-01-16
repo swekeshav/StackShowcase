@@ -1,18 +1,31 @@
 <template>
     <input type="file" accept=".txt,text/plain" @change="uploadTextFile" />
-    <pre id="previewTextFile">{{ fileContent }}</pre>
+    <pre v-if="fileContent">
+        <strong>
+This article contains {{ wordCount }} words.
+        </strong>
+    </pre>
+    <pre v-if="fileContent" id="previewTextFile">{{ fileContent }}</pre>
 </template>
 
-<script setup>
+<script setup lang="ts">
     import { ref } from 'vue'
 
-    let fileContent = ref('')
-    const uploadTextFile = () => {
-        const uploadFile = document.querySelector('input[type="file"]')
-       var fileReader = new FileReader()
-        fileReader.readAsText(uploadFile.files[0])
+    const fileContent = $ref('')
+    let wordCount = $ref(0)
+
+    const uploadTextFile = (event: Event) => {
+        const files = event.target.files
+        if(files.length === 0) {
+            console.log('No file selected')
+            return
+        }
+        
+        const fileReader = new FileReader()
+        fileReader.readAsText(files[0])
         fileReader.onload = function (e) {
-            fileContent.value = e.target.result
+            fileContent = e.target.result
+            wordCount = fileContent.split(' ').length + 1
         }
     }
 </script>
