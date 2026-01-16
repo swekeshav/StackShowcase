@@ -4,12 +4,17 @@
   "scripts": {
     "lint": "eslint .",
     "start": "http-server . -c-1 -o",
-    "dev": "vite",
-    "build": "vite build"
+    "dev": "vite --open",
+    "build": "vite build",
+    "preview": "vite preview --open"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
     "eslint": "9.39.2",
     "http-server": "14.1.1",
-    "vite": "2.9.18"
+    "vite": "2.9.9"
+  },
+  "dependencies": {
+    "vue": "3.2.25"
   }
 }
