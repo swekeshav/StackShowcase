@@ -1,4 +1,9 @@
-<h1>Text Previewer</h1><input type="file" id="uploadTextFile" accept=".txt,text/plain" />
-<pre id="previewTextFile"></pre>
-
+<template>
+    <h1>Text Previewer</h1>
+    <input type="file" accept=".txt,text/plain" @change="previewFile" />
+    <pre>{{fileContent}}</pre>
+</template>
+<script setup>
+    import { ref } from 'vue';
+</script>
 <script src="./file-reader.js" type="module"></script>
