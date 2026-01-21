@@ -9,7 +9,6 @@ This article contains {{ wordCount }} words.
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue'
 
     const fileContent = $ref('')
     let wordCount = $ref(0)
@@ -29,3 +28,7 @@ This article contains {{ wordCount }} words.
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    @import '@/styles/main.scss';
+</style>

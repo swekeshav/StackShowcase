@@ -8,5 +8,23 @@ export default defineConfig({
     base: "",
     build: {
         assetsDir: "./"
+    },
+    resolve: {
+        alias: {
+            '@': '/src'
+        }
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `
+                    @import "@/styles/_variables";
+
+                    @import "bootstrap/scss/functions";
+                    @import "bootstrap/scss/variables";
+                    @import "bootstrap/scss/mixins";
+                `
+            }
+        }
     }
 })
