@@ -11,12 +11,13 @@ This article contains {{ wordCount }} words.
 <script setup lang="ts">
     import { ref } from 'vue'
 
-    const fileContent = $ref('')
-    let wordCount = $ref(0)
+    let fileContent = ref('')
+    let wordCount = ref(0)
 
     const uploadTextFile = (event: Event) => {
-        const files = event.target.files
-        if(files.length === 0) {
+        console.log(event)
+        const files = (event.target as HTMLInputElement)!.files
+        if(!files || files.length === 0) {
             console.log('No file selected')
             return
         }
@@ -24,8 +25,12 @@ This article contains {{ wordCount }} words.
         const fileReader = new FileReader()
         fileReader.readAsText(files[0])
         fileReader.onload = function (e) {
-            fileContent = e.target.result
-            wordCount = fileContent.split(' ').length + 1
+            fileContent.value = e.target!.result as string
+            wordCount.value = fileContent.value.split(' ').length + 1
         }
     }
 </script>
+
+<style lang="scss">
+    @import '@/styles/main.scss';
+</style>
