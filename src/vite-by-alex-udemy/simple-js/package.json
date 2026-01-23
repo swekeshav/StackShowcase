@@ -1,8 +1,9 @@
 {
+  "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --open"
   },
   "devDependencies": {
     "vite": "^6.2.2"
