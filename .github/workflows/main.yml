@@ -15,21 +15,21 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '8.0.x'
           
       - name: Restore
-        run: dotnet restore ./Portfolio/Portfolio.sln
+        run: dotnet restore ./src/mvc-folio/Portfolio.sln
         
       - name: Build
-        run: dotnet build ./Portfolio/Portfolio.sln --configuration Release --no-restore
+        run: dotnet build ./src/mvc-folio/Portfolio.sln --configuration Release --no-restore
         
       - name: Publish
-        run: dotnet publish ./Portfolio/Portfolio.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+        run: dotnet publish ./src/mvc-folio/Portfolio.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         
       - name: Deployment
         uses: azure/webapps-deploy@v2
